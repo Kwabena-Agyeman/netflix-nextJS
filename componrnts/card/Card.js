@@ -15,7 +15,7 @@ const Card = ({ imgUrl, size }) => {
       Card
       <div className={classMap[size]}>
         <Image
-          className={styles.cardImage}
+          className={styles.cardImg}
           src={imgUrl}
           alt='image'
           layout='fill'
