@@ -2,12 +2,25 @@
 
 import React from "react";
 import Image from "next/image";
+import styles from "./Card.module.css";
 
 const Card = ({ imgUrl, size }) => {
+  const classMap = {
+    large: styles.lgItem,
+    medium: styles.mdItem,
+    small: styles.smItem,
+  };
   return (
-    <div>
+    <div className={styles.container}>
       Card
-      <Image src={imgUrl} alt='image' width={300} height={300} />
+      <div className={classMap[size]}>
+        <Image
+          className={styles.cardImage}
+          src={imgUrl}
+          alt='image'
+          layout='fill'
+        />
+      </div>
     </div>
   );
 };
