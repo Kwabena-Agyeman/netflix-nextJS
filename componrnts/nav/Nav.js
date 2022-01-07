@@ -1,11 +1,12 @@
 /** @format */
 
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Nav.module.css";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
 const NavBar = ({ username }) => {
+  const [showDropdown, setShowDropdown] = useState(false);
   const router = useRouter();
 
   const handleOnCLickHome = (e) => {
@@ -16,6 +17,10 @@ const NavBar = ({ username }) => {
   const handleOnMyList = (e) => {
     e.preventDefault();
     router.push("browse/my-list");
+  };
+
+  const handleShowDropDown = (e) => {
+    setShowDropdown(!showDropdown);
   };
 
   return (
@@ -47,18 +52,25 @@ const NavBar = ({ username }) => {
         </ul>
         <nav className={styles.navContainer}>
           <div>
-            <button className={styles.usernameBtn}>
+            <button
+              onClick={(e) => {
+                handleShowDropDown(e);
+              }}
+              className={styles.usernameBtn}
+            >
               <p className={styles.username}>{username}</p>
               {/* {Expand more icons} */}
             </button>
-            <div className={styles.navDropdown}>
-              <div>
-                <Link href='/login'>
-                  <a className={styles.linkName}>Sign out</a>
-                </Link>
-                <div className={styles.lineWrapper}></div>
+            {showDropdown && (
+              <div className={styles.navDropdown}>
+                <div>
+                  <Link href='/login'>
+                    <a className={styles.linkName}>Sign out</a>
+                  </Link>
+                  <div className={styles.lineWrapper}></div>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </nav>
       </div>
