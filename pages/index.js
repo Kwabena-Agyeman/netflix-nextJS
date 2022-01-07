@@ -25,7 +25,11 @@ export default function Home() {
 
       <Card imgUrl={"/static/The-Best-Breaking-Bad-Quotes.jpg"} size='large' />
       <Card imgUrl={"/static/The-Best-Breaking-Bad-Quotes.jpg"} size='medium' />
-      <Card imgUrl={"/static/The-Best-Breaking-Bad-Quotes.jpg"} size='small' />
+      <Card
+        // imgUrl={"/static/The-Best-Breaking-Bad-Quotes.jpg"}
+
+        size='small'
+      />
     </div>
   );
 }
