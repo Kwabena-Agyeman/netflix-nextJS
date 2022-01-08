@@ -3,11 +3,26 @@
 import Head from "next/head";
 import Image from "next/image";
 import Banner from "../componrnts/banner/banner";
-import Card from "../componrnts/card/Card";
+import SectionCards from "../componrnts/card/Section-card.component";
 import NavBar from "../componrnts/nav/Nav";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  const DisneyVideos = [
+    {
+      imgUrl: "/static/The-Best-Breaking-Bad-Quotes.jpg",
+    },
+    {
+      imgUrl: "/static/The-Best-Breaking-Bad-Quotes.jpg",
+    },
+    {
+      imgUrl: "/static/The-Best-Breaking-Bad-Quotes.jpg",
+    },
+    {
+      imgUrl: "/static/The-Best-Breaking-Bad-Quotes.jpg",
+    },
+  ];
+
   return (
     <div className={styles.container}>
       <Head>
@@ -23,13 +38,9 @@ export default function Home() {
         imgUrl={"../public/static/The-Best-Breaking-Bad-Quotes.webp"}
       />
 
-      <Card imgUrl={"/static/The-Best-Breaking-Bad-Quotes.jpg"} size='large' />
-      <Card imgUrl={"/static/The-Best-Breaking-Bad-Quotes.jpg"} size='medium' />
-      <Card
-        // imgUrl={"/static/The-Best-Breaking-Bad-Quotes.jpg"}
-
-        size='small'
-      />
+      <div className={styles.sectionWrapper}>
+        <SectionCards title={"Disney"} videos={DisneyVideos} size={"large"} />
+      </div>
     </div>
   );
 }
