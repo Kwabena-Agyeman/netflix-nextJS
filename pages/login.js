@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -29,7 +29,6 @@ const Login = () => {
 
           if (didToken) {
             router.push("/");
-            setLoading(false);
           }
         } catch (error) {
           // Handle errors if required!
@@ -48,6 +47,19 @@ const Login = () => {
     setUserMsg("");
     setEmail(e.target.value);
   };
+
+  useEffect(() => {
+    const handleComplete = () => {
+      setLoading(false);
+    };
+    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on("routeChangeError", handleComplete);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleComplete);
+      router.events.off("routeChangeError", handleComplete);
+    };
+  }, [router.events]);
 
   return (
     <div className={styles.container}>
