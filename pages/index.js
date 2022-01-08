@@ -7,11 +7,30 @@ import SectionCards from "../componrnts/card/Section-card.component";
 import NavBar from "../componrnts/nav/Nav";
 import styles from "../styles/Home.module.css";
 
-import { getVideos } from "../lib/videos";
+import { getPopularVideos, getVideos } from "../lib/videos";
 
-export default function Home() {
-  const DisneyVideos = getVideos();
+export const getServerSideProps = async () => {
+  const disneyVideos = await getVideos("marvel%20official%20trailers");
+  const techVideos = await getVideos("tech");
+  const travelVideos = await getVideos("travel");
+  const PopularVideos = await getPopularVideos();
+  // const PopularVideos = await getVideos("vevo");
+  return {
+    props: {
+      disneyVideos,
+      techVideos,
+      travelVideos,
+      PopularVideos,
+    },
+  };
+};
 
+export default function Home({
+  disneyVideos,
+  techVideos,
+  travelVideos,
+  PopularVideos,
+}) {
   return (
     <div className={styles.container}>
       <Head>
@@ -20,15 +39,28 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <NavBar username={"Kwabena@ymail.com"} />
-      <Banner
-        title={"Breaking Bad"}
-        subTitle={"Walter White's Journey"}
-        imgUrl={"../public/static/The-Best-Breaking-Bad-Quotes.webp"}
-      />
+      <div className={styles.main}>
+        <NavBar username={"Kwabena@ymail.com"} />
+        <Banner
+          title={"Breaking Bad"}
+          subTitle={"Walter White's Journey"}
+          imgUrl={"../public/static/The-Best-Breaking-Bad-Quotes.webp"}
+        />
 
-      <div className={styles.sectionWrapper}>
-        <SectionCards title={"Disney"} videos={DisneyVideos} size={"large"} />
+        <div className={styles.sectionWrapper}>
+          <SectionCards title={"Marvel"} videos={disneyVideos} size={"large"} />
+          <SectionCards
+            title={"Travel"}
+            videos={travelVideos}
+            size={"medium"}
+          />
+          <SectionCards title={"Tech"} videos={techVideos} size={"small"} />
+          <SectionCards
+            title={"Popular"}
+            videos={PopularVideos}
+            size={"small"}
+          />
+        </div>
       </div>
     </div>
   );
