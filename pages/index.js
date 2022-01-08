@@ -7,21 +7,10 @@ import SectionCards from "../componrnts/card/Section-card.component";
 import NavBar from "../componrnts/nav/Nav";
 import styles from "../styles/Home.module.css";
 
+import { getVideos } from "../lib/videos";
+
 export default function Home() {
-  const DisneyVideos = [
-    {
-      imgUrl: "/static/The-Best-Breaking-Bad-Quotes.jpg",
-    },
-    {
-      imgUrl: "/static/The-Best-Breaking-Bad-Quotes.jpg",
-    },
-    {
-      imgUrl: "/static/The-Best-Breaking-Bad-Quotes.jpg",
-    },
-    {
-      imgUrl: "/static/The-Best-Breaking-Bad-Quotes.jpg",
-    },
-  ];
+  const DisneyVideos = getVideos();
 
   return (
     <div className={styles.container}>
