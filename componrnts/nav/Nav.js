@@ -1,18 +1,33 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Nav.module.css";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 
-const NavBar = ({ username }) => {
-  const [showDropdown, setShowDropdown] = useState(false);
-  const router = useRouter();
+import { magic } from "../../lib/magic-client";
 
+const NavBar = () => {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [username, setUsername] = useState("");
+  const router = useRouter();
   const handleOnCLickHome = (e) => {
     e.preventDefault();
     router.push("/");
+  };
+
+  const handleSignout = async () => {
+    try {
+      await magic.user.logout();
+      console.log(await magic.user.isLoggedIn()); // => `false`
+      router.push("/login");
+    } catch (error) {
+      console.log({ "Error logging out": error });
+      router.push("/login");
+
+      // Handle errors if required!
+    }
   };
 
   const handleOnMyList = (e) => {
@@ -23,6 +38,21 @@ const NavBar = ({ username }) => {
   const handleShowDropDown = (e) => {
     setShowDropdown(!showDropdown);
   };
+
+  useEffect(() => {
+    const getUsername = async () => {
+      try {
+        const { email, publicAddress } = await magic.user.getMetadata();
+        console.log({ email });
+        setUsername(email);
+      } catch (error) {
+        console.log({ error });
+        // Handle errors if required!
+      }
+    };
+
+    getUsername();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -76,9 +106,15 @@ const NavBar = ({ username }) => {
             {showDropdown && (
               <div className={styles.navDropdown}>
                 <div>
-                  <Link href='/login'>
-                    <a className={styles.linkName}>Sign out</a>
-                  </Link>
+                  <a
+                    className={styles.linkName}
+                    onClick={(e) => {
+                      handleSignout(e);
+                    }}
+                  >
+                    Sign out
+                  </a>
+
                   <div className={styles.lineWrapper}></div>
                 </div>
               </div>
