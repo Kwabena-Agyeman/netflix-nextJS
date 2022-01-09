@@ -3,11 +3,14 @@
 import Image from "next/image";
 import React from "react";
 import styles from "./banner.module.scss";
+import { useRouter } from "next/router";
 
-const handleOnClick = () => {
-  console.log("hello");
-};
-const Banner = ({ title, subTitle, imgUrl }) => {
+const Banner = ({ title, subTitle, imgUrl, videoId }) => {
+  const router = useRouter();
+
+  const handleOnPlay = () => {
+    router.push(`/video/${videoId}`);
+  };
   return (
     <div className={styles.container}>
       <div className={styles.leftWrapper}>
@@ -22,7 +25,7 @@ const Banner = ({ title, subTitle, imgUrl }) => {
             <button
               className={styles.btnWithIcon}
               onClick={() => {
-                handleOnClick();
+                handleOnPlay();
               }}
             >
               <Image

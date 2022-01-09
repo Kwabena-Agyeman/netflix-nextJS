@@ -12,16 +12,16 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
   useEffect(() => {
-    // const isLoggedIn = async () => {
-    //   const LoggedIn = await magic.user.isLoggedIn(); // will return true or false
-    //   console.log("IS LOGGED IN", LoggedIn);
-    //   if (LoggedIn) {
-    //     router.push("/");
-    //   } else {
-    //     router.push("/login");
-    //   }
-    // };
-    // isLoggedIn();
+    const isLoggedIn = async () => {
+      const LoggedIn = await magic.user.isLoggedIn(); // will return true or false
+      console.log("IS LOGGED IN", LoggedIn);
+      if (LoggedIn) {
+        router.push("/");
+      } else {
+        router.push("/login");
+      }
+    };
+    isLoggedIn();
     // eslint-disable-next-line
   }, []);
 

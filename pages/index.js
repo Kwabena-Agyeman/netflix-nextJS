@@ -42,6 +42,7 @@ export default function Home({
       <div className={styles.main}>
         <NavBar username={"Kwabena@ymail.com"} />
         <Banner
+          videoId='1JLUn2DFW4w'
           title={"Breaking Bad"}
           subTitle={"Walter White's Journey"}
           imgUrl={"../public/static/The-Best-Breaking-Bad-Quotes.webp"}
