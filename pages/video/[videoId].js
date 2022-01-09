@@ -6,6 +6,7 @@ import Modal from "react-modal";
 import styles from "../../styles/Video.module.css";
 import clsx from "classnames";
 import { getYoutubeVideoById } from "../../lib/videos";
+import NavBar from "../../componrnts/nav/Nav";
 
 Modal.setAppElement("#__next");
 
@@ -58,6 +59,7 @@ const Video = ({ video }) => {
 
   return (
     <div className={styles.container}>
+      <NavBar />
       <Modal
         className={styles.modal}
         isOpen={true}
