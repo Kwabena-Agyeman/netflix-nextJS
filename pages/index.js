@@ -3,7 +3,7 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
-import Banner from "../componrnts/banner/banner";
+import Banner from "../componrnts/banner/Banner";
 import NavBar from "../componrnts/nav/Nav";
 
 import SectionCards from "../componrnts/card/Section-card.component";
