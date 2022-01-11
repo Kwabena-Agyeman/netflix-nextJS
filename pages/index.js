@@ -2,7 +2,7 @@
 
 import Head from "next/head";
 import Image from "next/image";
-import Banner from "../componrnts/banner/banner";
+import Banner from "../componrnts/banner/Banner";
 import SectionCards from "../componrnts/card/Section-card.component";
 import NavBar from "../componrnts/nav/Nav";
 import styles from "../styles/Home.module.css";
