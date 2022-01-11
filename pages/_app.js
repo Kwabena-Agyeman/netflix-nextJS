@@ -17,9 +17,9 @@ function MyApp({ Component, pageProps }) {
       console.log("IS LOGGED IN", LoggedIn);
       if (!LoggedIn) {
         router.push("/login");
+      } else {
+        setIsLoading(false);
       }
-
-      setIsLoading(false);
     };
     isLoggedIn();
     // eslint-disable-next-line
