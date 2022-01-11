@@ -23,6 +23,7 @@ const Login = () => {
           setLoading(true);
           const didToken = await magic.auth.loginWithMagicLink({
             email: email,
+            showUI: true,
           });
 
           console.log({ didToken });

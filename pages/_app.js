@@ -15,11 +15,11 @@ function MyApp({ Component, pageProps }) {
     const isLoggedIn = async () => {
       const LoggedIn = await magic.user.isLoggedIn(); // will return true or false
       console.log("IS LOGGED IN", LoggedIn);
-      if (LoggedIn) {
-        router.push("/");
-      } else {
+      if (!LoggedIn) {
         router.push("/login");
       }
+
+      setIsLoading(false);
     };
     isLoggedIn();
     // eslint-disable-next-line
