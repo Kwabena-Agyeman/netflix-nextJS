@@ -11,30 +11,22 @@ import { magic } from "../../lib/magic-client";
 const NavBar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [username, setUsername] = useState("");
-  const [didToken, setDidToken] = useState("");
-
   const router = useRouter();
   const handleOnCLickHome = (e) => {
     e.preventDefault();
     router.push("/");
   };
 
-  const handleSignout = async (e) => {
-    e.preventDefault();
-
+  const handleSignout = async () => {
     try {
-      const response = await fetch("/api/logout", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${didToken}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      const res = await response.json();
-    } catch (error) {
-      console.error("Error logging out", error);
+      await magic.user.logout();
+      console.log(await magic.user.isLoggedIn()); // => `false`
       router.push("/login");
+    } catch (error) {
+      console.log({ "Error logging out": error });
+      router.push("/login");
+
+      // Handle errors if required!
     }
   };
 
@@ -50,12 +42,11 @@ const NavBar = () => {
   useEffect(() => {
     const getUsername = async () => {
       try {
-        const { email, publicAddress, issuer } = await magic.user.getMetadata();
-        const didToken = await magic.user.getIdToken();
+        const { email, publicAddress } = await magic.user.getMetadata();
+        console.log({ email });
         setUsername(email);
-        setDidToken(didToken);
       } catch (error) {
-        console.log({ error }, "Error retrieving email");
+        console.log({ error });
         // Handle errors if required!
       }
     };

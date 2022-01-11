@@ -1,17 +1,29 @@
 /** @format */
 
 import { useState } from "react";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-
-import { magic } from "../lib/magic-client";
 import "../styles/globals.css";
-
+import { magic } from "../lib/magic-client";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 import Loading from "../componrnts/loading/Loading";
 
 function MyApp({ Component, pageProps }) {
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const isLoggedIn = async () => {
+      const LoggedIn = await magic.user.isLoggedIn(); // will return true or false
+      console.log("IS LOGGED IN", LoggedIn);
+      if (LoggedIn) {
+        router.push("/");
+      } else {
+        router.push("/login");
+      }
+    };
+    isLoggedIn();
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     const handleComplete = () => {
@@ -24,7 +36,8 @@ function MyApp({ Component, pageProps }) {
       router.events.off("routeChangeComplete", handleComplete);
       router.events.off("routeChangeError", handleComplete);
     };
-  }, [router]);
+  }, [router.events]);
+
   return isLoading ? <Loading /> : <Component {...pageProps} />;
 }
 
