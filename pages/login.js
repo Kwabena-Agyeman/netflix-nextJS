@@ -25,8 +25,6 @@ const Login = () => {
             email: email,
           });
 
-          console.log({ didToken });
-
           if (didToken) {
             router.push("/");
           }
