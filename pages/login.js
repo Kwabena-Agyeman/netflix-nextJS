@@ -18,7 +18,7 @@ const Login = () => {
     e.preventDefault();
 
     if (email) {
-      if (email === "kagyeman@ymail.com") {
+      if (email.length !== 0) {
         try {
           setLoading(true);
           const didToken = await magic.auth.loginWithMagicLink({
